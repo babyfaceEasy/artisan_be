@@ -2,6 +2,8 @@
 coverage.txt
 _test
 vendor
+bin
 .idea
 *.iml
 *.out
+.env

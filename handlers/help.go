@@ -68,36 +68,4 @@ func CreateHelp(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{
 		"msg": "Successful",
 	})
-
-	/*
-
-		helpData := models.Help{}
-		defer c.Request().Body.Close()
-		body, err := ioutil.ReadAll(c.Request().Body)
-		if err != nil {
-			log.Printf("Failed loading the request body for Help Data: %s", err)
-			return c.JSON(http.StatusInternalServerError, map[string]string{
-				"msg": "An error occured, please try again later.",
-			})
-		}
-
-		err = json.Unmarshal(body, &helpData)
-		if err != nil {
-			log.Printf("Failed in unmarshalling for the create help : %s ", err)
-			return c.JSON(http.StatusInternalServerError, map[string]string{
-				"msg": "An error occured, please try again later.",
-			})
-		}
-
-		// validate
-		err = helpData.Validate()
-		// b, _ := json.Marshal(err)
-		return c.JSON(http.StatusInternalServerError, err)
-
-		// save to the db
-		config.GormDB.Create(&helpData)
-		return c.JSON(http.StatusOK, map[string]string{
-			"msg": "Successful",
-		})
-	*/
 }
