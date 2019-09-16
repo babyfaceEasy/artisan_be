@@ -26,12 +26,6 @@ func main() {
 	// get configuration values
 	conf := config.New()
 
-	// load env file
-	err := godotenv.Load()
-	if err != nil {
-		panic("Failed to load .env file")
-	}
-
 	e := echo.New()
 	e.Logger.SetLevel(log.DEBUG)
 
