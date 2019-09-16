@@ -5,35 +5,56 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
+	"github.com/me/artisan_full/config"
 	"github.com/me/artisan_full/handlers"
 	"github.com/me/artisan_full/models"
 )
 
+func init() {
+	// load values from .env file into the system.
+	if err := godotenv.Load(); err != nil {
+		panic("No .env file found")
+	}
+}
+
 func main() {
+
+	// get configuration values
+	conf := config.New()
+
+	// load env file
+	err := godotenv.Load()
+	if err != nil {
+		panic("Failed to load .env file")
+	}
+
 	e := echo.New()
 	e.Logger.SetLevel(log.DEBUG)
 
 	e.Use(middleware.Logger())  // logger middleware will “wrap” recovery
 	e.Use(middleware.Recover()) // as it is enumerated before in the Use calls
 
-	// e.File("/", "static/index.html")
-
 	// add db to context
-	configuration := models.GetConfig()
-	gormParamteres := fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=disable", configuration.DbHost, configuration.DbPort, configuration.DbName, configuration.DbUsername, configuration.DbPassword)
+	gormParamteres := fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=disable",
+		conf.PostgresDB.DbHost,
+		conf.PostgresDB.DbPort,
+		conf.PostgresDB.DbName,
+		conf.PostgresDB.DbUsername,
+		conf.PostgresDB.DbPassword)
 	gormDB, err := gorm.Open("postgres", gormParamteres)
 	if err != nil {
 		panic("failed to connect to db")
 	}
-	models.GormDB = gormDB
+	config.GormDB = gormDB
 	// Migrate the tables
 	// models.GormDB.AutoMigrate(&models.Test{})
-	models.GormDB.AutoMigrate(&models.Help{})
+	config.GormDB.AutoMigrate(&models.Help{})
 
-	defer models.GormDB.Close()
+	defer config.GormDB.Close()
 
 	// in order to serve static assets
 	e.Static("/static", "static")
@@ -47,5 +68,6 @@ func main() {
 			return c.String(http.StatusOK, "Hello, World!")
 		})
 	*/
-	e.Logger.Fatal(e.Start(":1323"))
+	port := fmt.Sprintf(":%s", conf.ServerConf.ServerPort)
+	e.Logger.Fatal(e.Start(port))
 }

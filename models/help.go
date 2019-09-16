@@ -18,7 +18,7 @@ type Help struct {
 	EL             string `gorm:"type:char(15)" json:"education_level"`         // education_level
 
 	// job details
-	Service                 string `gorm:"type:varchar(50);unique;not null" json:"service"`
+	Service                 string `gorm:"type:varchar(50);not null" json:"service"`
 	Meals                   string `gorm:"type:text" json:"meals"` // can be null
 	Experience              bool   `gorm:"DEFAULT:false" json:"experience"`
 	YearsOfExperience       int    `gorm:"size:3;default:0" json:"years_of_experience"`

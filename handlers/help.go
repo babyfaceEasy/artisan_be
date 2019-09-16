@@ -5,6 +5,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/me/artisan_full/bindings"
+	"github.com/me/artisan_full/config"
 	"github.com/me/artisan_full/models"
 	"github.com/me/artisan_full/renderings"
 )
@@ -57,7 +58,7 @@ func CreateHelp(c echo.Context) error {
 	help.YearsOfExperience = helpReq.YearsOfExperience
 
 	// save to the db
-	result := models.GormDB.Create(&help)
+	result := config.GormDB.Create(&help)
 
 	if result.Error != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{

@@ -40,8 +40,8 @@ type HelpRequest struct {
 // Validate - this is the validator class for the request.
 func (h HelpRequest) Validate() error {
 	return validation.ValidateStruct(&h,
-		validation.Field(&h.FirstName, validation.Required, validation.Length(5, 50)),
-		validation.Field(&h.LastName, validation.Required, validation.Length(5, 50)),
+		validation.Field(&h.FirstName, validation.Required, validation.Length(3, 50)),
+		validation.Field(&h.LastName, validation.Required, validation.Length(3, 50)),
 		validation.Field(&h.Age, validation.Required, validation.Min(1), validation.Max(100)),
 		validation.Field(&h.Email, validation.Required, is.Email),
 		validation.Field(&h.PhoneNumber, validation.Required, validation.Length(11, 11)),
