@@ -31,6 +31,7 @@ func main() {
 
 	e.Use(middleware.Logger())  // logger middleware will “wrap” recovery
 	e.Use(middleware.Recover()) // as it is enumerated before in the Use calls
+	e.Use(middleware.CORS())
 
 	// add db to context
 	gormParamteres := fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=disable",

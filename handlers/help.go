@@ -56,6 +56,7 @@ func CreateHelp(c echo.Context) error {
 	help.Service = helpReq.Service
 	help.SuitableStory = helpReq.SuitableStory
 	help.YearsOfExperience = helpReq.YearsOfExperience
+	help.GuarantorMOI = helpReq.GuarantorIdentification
 
 	// save to the db
 	result := config.GormDB.Create(&help)

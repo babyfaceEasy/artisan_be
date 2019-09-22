@@ -35,4 +35,5 @@ type Help struct {
 	GuarantorEmail          string `gorm:"type:varchar(100); not null" json:"guarantor_email"`
 	GuarantorContactAddress string `gorm:"type:text; not null" json:"guarantor_contact_address"`
 	GuarantorCity           string `gorm:"type:varchar(100); not null" json:"guarantor_city"`
+	GuarantorMOI            string `gorm:"type:char(15); default:''" json:"guarantor_moi"`
 }

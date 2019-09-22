@@ -35,6 +35,7 @@ type HelpRequest struct {
 	GuarantorEmail          string `json:"guarantor_email"`
 	GuarantorContactAddress string `json:"guarantor_contact_address"`
 	GuarantorCity           string `json:"guarantor_city"`
+	GuarantorIdentification string `json:"guarantor_moi"`
 }
 
 // Validate - this is the validator class for the request.
@@ -63,5 +64,6 @@ func (h HelpRequest) Validate() error {
 		validation.Field(&h.GuarantorPhoneNumber, validation.Required, validation.Length(11, 11)),
 		validation.Field(&h.GuarantorContactAddress, validation.Required, validation.Length(5, 500)),
 		validation.Field(&h.GuarantorCity, validation.Required, validation.Length(2, 50)),
+		validation.Field(&h.GuarantorIdentification, validation.Required),
 	)
 }
