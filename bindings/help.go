@@ -46,7 +46,7 @@ func (h HelpRequest) Validate() error {
 		validation.Field(&h.Age, validation.Required, validation.Min(1), validation.Max(100)),
 		validation.Field(&h.Email, validation.Required, is.Email),
 		validation.Field(&h.PhoneNumber, validation.Required, validation.Length(11, 11)),
-		validation.Field(&h.ContactAddress, validation.Required, validation.Length(5, 500)),
+		validation.Field(&h.ContactAddress, validation.Required, validation.Length(2, 500)),
 		validation.Field(&h.City, validation.Required, validation.Length(2, 50)),
 		validation.Field(&h.MOI, validation.Required),
 		validation.Field(&h.EL, validation.Required),
@@ -58,8 +58,8 @@ func (h HelpRequest) Validate() error {
 		validation.Field(&h.HoursOfWork, validation.Required, validation.Max(120)),
 
 		// guarantor
-		validation.Field(&h.GuarantorFirstName, validation.Required, validation.Length(5, 50)),
-		validation.Field(&h.GuarantorLastName, validation.Required, validation.Length(5, 50)),
+		validation.Field(&h.GuarantorFirstName, validation.Required, validation.Length(2, 50)),
+		validation.Field(&h.GuarantorLastName, validation.Required, validation.Length(2, 50)),
 		validation.Field(&h.GuarantorEmail, validation.Required, is.Email),
 		validation.Field(&h.GuarantorPhoneNumber, validation.Required, validation.Length(11, 11)),
 		validation.Field(&h.GuarantorContactAddress, validation.Required, validation.Length(5, 500)),
