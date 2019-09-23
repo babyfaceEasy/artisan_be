@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -31,7 +32,10 @@ func main() {
 
 	e.Use(middleware.Logger())  // logger middleware will “wrap” recovery
 	e.Use(middleware.Recover()) // as it is enumerated before in the Use calls
-	e.Use(middleware.CORS())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{http.MethodGet, http.MethodHead, http.MethodPut, http.MethodPatch, http.MethodPost, http.MethodDelete},
+	}))
 
 	// add db to context
 	gormParamteres := fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=disable",
